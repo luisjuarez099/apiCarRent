@@ -48,6 +48,20 @@ class ControladorRenta{
             
         }
     }
+
+    public function borrarRenta($id){
+        $rentas_data = ModelosRentaMiCarro::borrarRenta("rentas", $id);
+        if($rentas_data != 'ok'){
+            $json = array(
+                'detalle' => 'No se pudo borrar',
+            );
+            return;
+        }else{
+            echo "Eliminado con éxito";
+            return;
+            
+        }
+    }
 }
 
 

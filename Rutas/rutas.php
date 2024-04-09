@@ -23,9 +23,8 @@ if (count(array_filter($rutas_param)) == 1) {
             $cliente = new MisClientes(); // Asumiendo que MisClientes es una clase válida
             $cliente->index();
         }
-    } 
+    }
     #*********************************************Rentas*********************************************
-    
     elseif ($dd == 'rentas') {
         if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
             $renta = new ControladorRenta(); // Asumiendo que ControladorRenta es una clase válida
@@ -48,12 +47,17 @@ if (count(array_filter($rutas_param)) == 1) {
         if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
             $renta = new ControladorRenta(); // Asumiendo que ControladorRenta es una clase válida
             $renta->mostrarRenta($dd_id);
-        }else if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'PUT'){
+        } elseif (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'PUT') {
             $datos = []; #le mandamos los datos como un arreglo
             parse_str(file_get_contents('php://input'), $datos); #capturamos los datos pasandole un array con todos los datos
             $renta = new ControladorRenta(); // Asumiendo que ControladorRenta es una clase válida
             $renta->editarRenta($dd_id, $datos);
-        }   
+        }
+    } elseif ($dd == 'eliminarRenta' && is_numeric($dd_id)) {
+        if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'DELETE') {
+            $renta = new ControladorRenta(); // Asumiendo que ControladorRenta es una clase válida
+            $renta->borrarRenta($dd_id);
+        }
     }
     #*********************************************Clientes*********************************************
     elseif ($dd == 'crearClientes') {
@@ -70,21 +74,19 @@ if (count(array_filter($rutas_param)) == 1) {
             $cliente = new MisClientes(); // Asumiendo que MisClientes es una clase válida
             $cliente->crearCliente($datos);
         }
-    }elseif ($dd == 'editarCliente' && is_numeric($dd_id)) {
+    } elseif ($dd == 'editarCliente' && is_numeric($dd_id)) {
         if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
             $clientes = new MisClientes(); // Asumiendo que Controladorclientes es una clase válida
             $clientes->mostrarCliente($dd_id);
-        }
-        else if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'PUT'){
+        } elseif (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'PUT') {
             $datos = []; #le mandamos los datos como un arreglo
             parse_str(file_get_contents('php://input'), $datos); #capturamos los datos pasandole un array con todos los datos
             $clientes = new MisClientes(); // Asumiendo que Controladorclientes es una clase válida
             $clientes->editarClientes($dd_id, $datos);
-        }   
+        }
     }
-    
+
     #*********************************************Direcciones*********************************************
-    
     elseif ($dd == 'editarDireccion' && is_numeric($dd_id)) {
         if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
             $dir = new ControladorDireccion(); // Asumiendo que ControladorDireccion es una clase válida

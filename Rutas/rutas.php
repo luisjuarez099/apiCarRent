@@ -26,12 +26,12 @@ if (count(array_filter($rutas_param)) == 1) {
     } 
     #*********************************************Rentas*********************************************
     
-    elseif ($dd == 'misrentas') {
+    elseif ($dd == 'rentas') {
         if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
             $renta = new ControladorRenta(); // Asumiendo que ControladorRenta es una clase válida
             $renta->index();
         }
-    } elseif ($dd == 'nuevarenta') {
+    } elseif ($dd == 'crearRenta') {
         if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
             $datos = [
                 'LugarReco' => $_POST['LugarReco'],
@@ -97,7 +97,7 @@ if (count(array_filter($rutas_param)) == 1) {
             $dir = new ControladorDireccion(); // Asumiendo que ControladorDireccion es una clase válida
             $dir->editarDireccion($dd_id, $datos);
         }
-    } elseif ($dd == 'creardireccion') {
+    } elseif ($dd == 'crearDireccion') {
         if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
             $datos = [
                 'Calle' => $_POST['Calle'],

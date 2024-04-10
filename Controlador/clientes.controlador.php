@@ -215,14 +215,7 @@ class MisClientes
                 break; // Salimos del bucle una vez que encontramos una coincidencia
             }
         }
-        if(is_string($datos['Direccion'])){
-            $json = [
-                'detalle' => 'Error',
-                'mensaje' => 'La direccion no es valida',
-            ];
-            echo json_encode($json, true);
-            return;
-        }
+        
         if (!$existe_direccion) {
             $json = [
                 'detalle' => 'Error',

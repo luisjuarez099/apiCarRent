@@ -21,8 +21,8 @@ class ControladorRenta{
         return;
        
     }
-
     public function mostrarRenta($id){
+        #aqui se hacn las rentas para las validaciones
         $renta = ModelosRentaMiCarro::mostrarRenta("rentas", $id);
         $json = array(
             $renta

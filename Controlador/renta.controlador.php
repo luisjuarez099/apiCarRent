@@ -1,7 +1,5 @@
 <?php 
 
-
-
 class ControladorRenta{
     public function index(){
         #Metodo para visualizar los datos con un select

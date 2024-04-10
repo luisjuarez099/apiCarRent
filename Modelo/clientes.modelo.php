@@ -54,5 +54,20 @@ class ModelosClientes
         }
     }
 
+
+    static public function validacionFKDireccion($tabla){
+        $stmt = Conexion::conectar()->prepare("SELECT idSucursal FROM $tabla;");
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    static public function validacionIdCliente($tabla){
+        $stmt = Conexion::conectar()->prepare("SELECT idClientes FROM $tabla;");
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
+
    
 }

@@ -44,6 +44,30 @@ class ModeloDireccion{
        
     }
 
+    static public function validacionDeColonia($tabla){
+        $stmt = Conexion::conectar()->prepare("SELECT idColonia FROM $tabla");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
+ 
+    static public function validacionDeMunicipio($tabla){
+        $stmt = Conexion::conectar()->prepare("SELECT idMunicipios FROM $tabla");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
 
+    static public function validacionDeCP($tabla){
+        $stmt = Conexion::conectar()->prepare("SELECT idcp FROM $tabla");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+
+    }
+
+    static public function validarIdDireccion($tabla){
+        $stmt = Conexion::conectar()->prepare("SELECT idSucursal FROM $tabla");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+
+    }
    
 }

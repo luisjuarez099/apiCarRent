@@ -56,7 +56,7 @@ class ModelosRentaMiCarro{
             return 'error';
         }
     }
-
+    
     static public function borrarRenta($tabla, $id){
         $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE idRentas = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

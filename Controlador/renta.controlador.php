@@ -31,6 +31,17 @@ class ControladorRenta{
     }
 
     public function editarRenta($id, $datos){
+
+        $test_date = '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/';
+        if($datos['FechaReco'] == '' || $datos['FechaDevo'] == ''){
+            $json = array(
+                'detalle' => 'Los campos de fecha no pueden estar vacios',
+            );
+            echo json_encode($json, true);
+            return;
+        }
+
+
         $rentas_data = ModelosRentaMiCarro::actualizarRenta("rentas", $id, $datos);
         if($rentas_data != 'ok'){
             $json = array(

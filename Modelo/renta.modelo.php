@@ -56,7 +56,7 @@ class ModelosRentaMiCarro{
             return 'error';
         }
     }
-    
+
     static public function borrarRenta($tabla, $id){
         $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE idRentas = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -65,6 +65,21 @@ class ModelosRentaMiCarro{
         }else{
             return 'error';
         }
+    }
+
+
+    static public function validacionFKLugarReco($tabla){
+        $stmt = Conexion::conectar()->prepare("SELECT LugarReco FROM $tabla;");
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    static public function ValidacionIdRentas($tabla){
+        $stmt = Conexion::conectar()->prepare("SELECT idRentas FROM $tabla;");
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
     }
     
 }

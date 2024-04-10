@@ -12,6 +12,7 @@ class ControladorRenta{
     }
 
     public function crearRenta($datos){
+
     $create = ModelosRentaMiCarro::crearRenta("rentas", $datos);
        $json = array(
             $datos,
@@ -31,17 +32,75 @@ class ControladorRenta{
     }
 
     public function editarRenta($id, $datos){
-
         $test_date = '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/';
-        if($datos['FechaReco'] == '' || $datos['FechaDevo'] == ''){
-            $json = array(
-                'detalle' => 'Los campos de fecha no pueden estar vacios',
-            );
+
+
+        #validamos que los campos no esten vacios
+        if ($datos['LugarReco'] == '' || $datos['LugarDevo'] == '' || $datos['FechaReco'] == '' || $datos['FechaDevo'] == '' || $datos['TipoCarro'] == '' || $datos['Cliente'] == '') {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'Verifica que los campos no pueden estar vacios',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
+        #validamos que los campos sean el tipo de dato correcto
+        if (!preg_match($test_date, $datos['FechaReco'])) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'La fecha de Recogida no es valida',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
+        if (!preg_match($test_date, $datos['FechaDevo'])) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'La fecha de Devolucion no es valida',
+            ];
             echo json_encode($json, true);
             return;
         }
 
+            #validacionde FK en la tabla direccion
+            $existe_lugarReco = false;
+            $validacionFK = ModelosRentaMiCarro::validacionFKLugarReco('rentas');
+            // print_r($validacionFK);
+            // print_r($datos['LugarReco']);
+            // echo $datos['Direccion'];
+            foreach ($validacionFK as $value) {
+                if ($datos['LugarReco'] == $value->LugarReco) {
+                    $existe_lugarReco = true;
+                    break; // Salimos del bucle una vez que encontramos una coincidencia
+                }
+            }
+            
+            if (!$existe_lugarReco) {
+                $json = [
+                    'detalle' => 'Error',
+                    'mensaje' => 'No existe el lugar de recogida',
+                ];
+                echo json_encode($json, true);
+                return;
+            }
 
+        #validacionde id para actualizar
+        $id_rentas  =  ModelosRentaMiCarro::ValidacionIdRentas('rentas');
+        $existe_id = false;
+        foreach ($id_rentas as $value) {
+            if ($id == $value->idRentas) {
+                $existe_id = true;
+                break; // Salimos del bucle una vez que encontramos una coincidencia
+            }
+        }
+        if (!$existe_id) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'El id no existe',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
         $rentas_data = ModelosRentaMiCarro::actualizarRenta("rentas", $id, $datos);
         if($rentas_data != 'ok'){
             $json = array(
@@ -71,6 +130,7 @@ class ControladorRenta{
             
         }
     }
+
 }
 
 

@@ -12,7 +12,66 @@ class ControladorRenta{
     }
 
     public function crearRenta($datos){
-
+        $test_nums = '/^[0-9]*$/';
+        $test_date = '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/';
+        if($datos['LugarReco'] == '' || $datos['LugarDevo'] == '' || $datos['FechaReco'] == '' || $datos['FechaDevo'] == '' || $datos['TipoCarro'] == '' || $datos['Cliente'] == ''){
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'Verifica que los campos no pueden estar vacios',
+            ];
+            echo json_encode($json, true);
+            return;
+        } 
+        if (!preg_match($test_nums, $datos['LugarReco'])) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'El lugar de Recogida no es valida',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
+        if (!preg_match($test_nums, $datos['LugarDevo'])) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'El lugar de Devolucion no es valida',
+            ];
+            echo json_encode($json, true);
+            return;
+        } 
+        
+        if(!preg_match($test_date, $datos['FechaReco'])){
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'La fecha de Recogida no es valida',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
+        if(!preg_match($test_date, $datos['FechaDevo'])){
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'La fecha de Devolucion no es valida',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
+       
+        if (!preg_match($test_nums, $datos['TipoCarro'])) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'El id del tipo de carro no es valido',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
+        if (!preg_match($test_nums, $datos['Cliente'])) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'El id del cliente no es valido',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
     $create = ModelosRentaMiCarro::crearRenta("rentas", $datos);
        $json = array(
             $datos,

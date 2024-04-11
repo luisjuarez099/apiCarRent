@@ -6,7 +6,7 @@ class Conexion{
     static private $host = 'localhost';
     static private $dbname = 'rentme';
     static private $username = 'root';
-    static private $password = 'root';
+    static private $password = '';
     static public function conectar(){
    
             $link = new PDO("mysql:host=" . self::$host . "; dbname=" . self::$dbname, self::$username, self::$password);

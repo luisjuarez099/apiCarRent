@@ -33,7 +33,7 @@ class ControladorRenta{
 
     public function editarRenta($id, $datos){
         $test_date = '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/';
-
+        $test_nums = '/^[0-9]*$/';
 
         #validamos que los campos no esten vacios
         if ($datos['LugarReco'] == '' || $datos['LugarDevo'] == '' || $datos['FechaReco'] == '' || $datos['FechaDevo'] == '' || $datos['TipoCarro'] == '' || $datos['Cliente'] == '') {
@@ -45,6 +45,22 @@ class ControladorRenta{
             return;
         }
         #validamos que los campos sean el tipo de dato correcto
+        if (!preg_match($test_nums, $datos['LugarReco'])) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'El Lugar De Recogida No Es Valida',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
+        if (!preg_match($test_nums, $datos['LugarDevo'])) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'El Lugar De Devolucion No Es Valida',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
         if (!preg_match($test_date, $datos['FechaReco'])) {
             $json = [
                 'detalle' => 'Error',
@@ -57,6 +73,22 @@ class ControladorRenta{
             $json = [
                 'detalle' => 'Error',
                 'mensaje' => 'La fecha de Devolucion no es valida',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
+        if (!preg_match($test_nums, $datos['TipoCarro'])) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'El carro no es valido',
+            ];
+            echo json_encode($json, true);
+            return;
+        }
+        if (!preg_match($test_nums, $datos['Cliente'])) {
+            $json = [
+                'detalle' => 'Error',
+                'mensaje' => 'El cliente no es valido',
             ];
             echo json_encode($json, true);
             return;

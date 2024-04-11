@@ -6,7 +6,17 @@ class ModelosClientes
 {
     static public function index($tabla)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+        $stmt = Conexion::conectar()->prepare("SELECT clientes.Nombre, clientes.ApellidoP, clientes.ApellidoM, clientes.AnioNacimiento, clientes.CURP, clientes.Telefono,
+        direccion.Calle, direccion.NumExt, colonia.coloNombre as Colonia, municipios.nombre as Municipio, estado.nombre as Estado,
+        cp.CP
+        FROM rentme.$tabla
+        INNER JOIN direccion ON clientes.Direccion = direccion.idSucursal
+        INNER JOIN colonia ON direccion.Colonia = colonia.idColonia
+        INNER JOIN municipios ON direccion.Municipio = municipios.idMunicipios
+        INNER JOIN estado on municipios.estado = estado.idEstado
+        INNER JOIN cp on direccion.cp = cp.idcp
+        ;
+        ");
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS); #devuelve todos los cursos

@@ -5,7 +5,14 @@ require_once 'conexion.php';
 class ModeloDireccion{
      
     static public function misDirecciones($tabla, $id){
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE idSucursal = :id");
+        $stmt = Conexion::conectar()->prepare("SELECT Dire.Calle AS CalleReco, Dire.NumExt as NumExt, Colo.coloNombre as Colonia, Muni.nombre as Municipio, Estado.nombre as Estado, CP.CP
+        FROM rentme.rentas
+        INNER JOIN direccion  Dire ON rentas.LugarReco = Dire.idSucursal
+        INNER JOIN Colonia    Colo ON Dire.Colonia = Colo.idColonia
+        INNER JOIN municipios Muni ON rentas.LugarReco = Muni.idMunicipios
+        INNER JOIN estado Estado   ON Muni.estado = Estado.idEstado
+        INNER JOIN cp CP 		   ON rentas.LugarReco = CP.idcp 
+        WHERE idSucursal = :id");
         #pasamos el parametro id
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

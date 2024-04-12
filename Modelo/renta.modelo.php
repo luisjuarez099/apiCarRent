@@ -97,25 +97,25 @@ class ModelosRentaMiCarro{
 
 
     static public function validacionFKLugarReco($tabla){
-        $stmt = Conexion::conectar()->prepare("SELECT LugarReco FROM $tabla;");
+        $stmt = Conexion::conectar()->prepare("SELECT idSucursal FROM $tabla;");
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS);
     }
     static public function validacionFKLugarDevo($tabla){
-        $stmt = Conexion::conectar()->prepare("SELECT LugarDevo FROM $tabla;");
+        $stmt = Conexion::conectar()->prepare("SELECT idSucursal FROM $tabla;");
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS);
     }
     static public function validacionFKTipoCarro($tabla){
-        $stmt = Conexion::conectar()->prepare("SELECT TipoCarro FROM $tabla;");
+        $stmt = Conexion::conectar()->prepare("SELECT idTipoCarros FROM $tabla;");
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS);
     }
     static public function validacionFKCliente($tabla){
-        $stmt = Conexion::conectar()->prepare("SELECT Cliente FROM $tabla;");
+        $stmt = Conexion::conectar()->prepare("SELECT idClientes FROM $tabla;");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS);
     }

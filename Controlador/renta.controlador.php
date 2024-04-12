@@ -73,77 +73,71 @@ class ControladorRenta{
             return;
         }
 
-            #validacionde FK en la tabla direccion
-            $existe_lugarReco = false;
-            $validacionFK = ModelosRentaMiCarro::validacionFKLugarReco('rentas');
-            foreach ($validacionFK as $value) {
-                if ($datos['LugarReco'] == $value->LugarReco) {
-                    $existe_lugarReco = true;
-                    break; // Salimos del bucle una vez que encontramos una coincidencia
-                }
-            }
-            if (!$existe_lugarReco) {
-                $json = [
-                    'detalle' => 'Error',
-                    'mensaje' => 'No existe el lugar de recogida',
-                ];
-                echo json_encode($json, true);
-                return;
-            }
-
-            $existe_lugarDevo = false;
-            $validacionFK = ModelosRentaMiCarro::validacionFKLugarDevo('rentas');
-            foreach ($validacionFK as $value) {
-                if ($datos['LugarDevo'] == $value->LugarDevo) {
-                    $existe_lugarDevo = true;
-                    break; // Salimos del bucle una vez que encontramos una coincidencia
-                }
-            }
-            
-            if (!$existe_lugarDevo) {
-                $json = [
-                    'detalle' => 'Error',
-                    'mensaje' => 'No existe el lugar de devolucion',
-                ];
-                echo json_encode($json, true);
-                return;
-            }
-
-            $existe_TipoCarro = false;
-            $validacionFK = ModelosRentaMiCarro::validacionFKTipoCarro('rentas');
-            foreach ($validacionFK as $value) {
-                if ($datos['TipoCarro'] == $value->TipoCarro) {
-                    $existe_TipoCarro = true;
-                    break; // Salimos del bucle una vez que encontramos una coincidencia
-                }
-            }
-            
-            if (!$existe_TipoCarro) {
-                $json = [
-                    'detalle' => 'Error',
-                    'mensaje' => 'No existe el tipo de carro',
-                ];
-                echo json_encode($json, true);
-                return;
-            }
-            
-            $existe_Cliente = false;
-            $validacionFK = ModelosRentaMiCarro::validacionFKCliente('rentas');
-            foreach ($validacionFK as $value) {
-                if ($datos['Cliente'] == $value->Cliente) {
-                    $existe_Cliente = true;
-                    break; // Salimos del bucle una vez que encontramos una coincidencia
-                }
-            }
-            
-            if (!$existe_Cliente) {
-                $json = [
-                    'detalle' => 'Error',
-                    'mensaje' => 'No existe el cliente',
-                ];
-                echo json_encode($json, true);
-                return;
-            }
+              #validacionde FK en la tabla direccion
+              $validacion_LugarReco = False;
+              $LugarReco = ModelosRentaMiCarro::validacionFKLugarReco('direccion');
+              foreach ($LugarReco as $key => $value) {
+                  if($value->idSucursal == $datos['LugarReco']){
+                      $validacion_LugarReco= True;
+                  }
+              }
+              if(!$validacion_LugarReco){
+                  $json = [
+                      'estado' => 'error',
+                      'detalle' => 'No se han registrado direcciones con ese id',
+                  ];
+                  echo json_encode($json, true);
+                  return;
+              }
+  
+              #Validacion de LugarDevo
+              $validacion_LugarDevo = False;
+              $LugarDevo = ModelosRentaMiCarro::validacionFKLugarDevo('direccion');
+              foreach ($LugarDevo as $key => $value) {
+                  if($value->idSucursal == $datos['LugarDevo']){
+                      $validacion_LugarDevo= True;
+                  }
+              }
+              if(!$validacion_LugarDevo){
+                  $json = [
+                      'estado' => 'error',
+                      'detalle' => 'No se han registrado direcciones con ese numero',
+                  ];
+                  echo json_encode($json, true);
+                  return;
+              }
+             #Validacion de TipoCarro
+              // $validacion_TipoCarro = False;
+              // $TipoCarro = ModelosRentaMiCarro::validacionFKTipoCarro('tipocarros');
+              // foreach ($TipoCarro as $key => $value) {
+              //     if($value->idTipoCarros == $datos['TipoCarro']){
+              //         $validacion_TipoCarro= True;
+              //     }
+              // }
+              // if(!$validacion_TipoCarro){
+              //     $json = [
+              //         'estado' => 'error',
+              //         'detalle' => 'No se han registrado clientes con ese numero',
+              //     ];
+              //     echo json_encode($json, true);
+              //     return;
+              // }
+              #Validacion de Cliente
+              $validacion_Cliente = False;
+              $Cliente = ModelosRentaMiCarro::validacionFKCliente('clientes');
+              foreach ($Cliente as $key => $value) {
+                  if($value->idClientes == $datos['Cliente']){
+                      $validacion_Cliente= True;
+                  }
+              }
+              if(!$validacion_Cliente){
+                  $json = [
+                      'estado' => 'error',
+                      'detalle' => 'No se han registrado clientes con ese numero',
+                  ];
+                  echo json_encode($json, true);
+                  return;
+              }           
         
     $create = ModelosRentaMiCarro::crearRenta("rentas", $datos);
        $json = array(
@@ -227,76 +221,70 @@ class ControladorRenta{
         }
 
             #validacionde FK en la tabla direccion
-            $existe_lugarReco = false;
-            $validacionFK = ModelosRentaMiCarro::validacionFKLugarReco('rentas');
-            foreach ($validacionFK as $value) {
-                if ($datos['LugarReco'] == $value->LugarReco) {
-                    $existe_lugarReco = true;
-                    break; // Salimos del bucle una vez que encontramos una coincidencia
+            $validacion_LugarReco = False;
+            $LugarReco = ModelosRentaMiCarro::validacionFKLugarReco('direccion');
+            foreach ($LugarReco as $key => $value) {
+                if($value->idSucursal == $datos['LugarReco']){
+                    $validacion_LugarReco= True;
                 }
             }
-            if (!$existe_lugarReco) {
+            if(!$validacion_LugarReco){
                 $json = [
-                    'detalle' => 'Error',
-                    'mensaje' => 'No existe el lugar de recogida',
+                    'estado' => 'error',
+                    'detalle' => 'No se han registrado direcciones con ese id',
                 ];
                 echo json_encode($json, true);
                 return;
             }
 
-            $existe_lugarDevo = false;
-            $validacionFK = ModelosRentaMiCarro::validacionFKLugarDevo('rentas');
-            foreach ($validacionFK as $value) {
-                if ($datos['LugarDevo'] == $value->LugarDevo) {
-                    $existe_lugarDevo = true;
-                    break; // Salimos del bucle una vez que encontramos una coincidencia
+            #Validacion de LugarDevo
+            $validacion_LugarDevo = False;
+            $LugarDevo = ModelosRentaMiCarro::validacionFKLugarDevo('direccion');
+            foreach ($LugarDevo as $key => $value) {
+                if($value->idSucursal == $datos['LugarDevo']){
+                    $validacion_LugarDevo= True;
                 }
             }
-            
-            if (!$existe_lugarDevo) {
+            if(!$validacion_LugarDevo){
                 $json = [
-                    'detalle' => 'Error',
-                    'mensaje' => 'No existe el lugar de devolucion',
+                    'estado' => 'error',
+                    'detalle' => 'No se han registrado direcciones con ese numero',
                 ];
                 echo json_encode($json, true);
                 return;
             }
-
-            $existe_TipoCarro = false;
-            $validacionFK = ModelosRentaMiCarro::validacionFKTipoCarro('rentas');
-            foreach ($validacionFK as $value) {
-                if ($datos['TipoCarro'] == $value->TipoCarro) {
-                    $existe_TipoCarro = true;
-                    break; // Salimos del bucle una vez que encontramos una coincidencia
+           #Validacion de TipoCarro
+            // $validacion_TipoCarro = False;
+            // $TipoCarro = ModelosRentaMiCarro::validacionFKTipoCarro('tipocarros');
+            // foreach ($TipoCarro as $key => $value) {
+            //     if($value->idTipoCarros == $datos['TipoCarro']){
+            //         $validacion_TipoCarro= True;
+            //     }
+            // }
+            // if(!$validacion_TipoCarro){
+            //     $json = [
+            //         'estado' => 'error',
+            //         'detalle' => 'No se han registrado clientes con ese numero',
+            //     ];
+            //     echo json_encode($json, true);
+            //     return;
+            // }
+            #Validacion de Cliente
+            $validacion_Cliente = False;
+            $Cliente = ModelosRentaMiCarro::validacionFKCliente('clientes');
+            foreach ($Cliente as $key => $value) {
+                if($value->idClientes == $datos['Cliente']){
+                    $validacion_Cliente= True;
                 }
             }
-            
-            if (!$existe_TipoCarro) {
+            if(!$validacion_Cliente){
                 $json = [
-                    'detalle' => 'Error',
-                    'mensaje' => 'No existe el tipo de carro',
+                    'estado' => 'error',
+                    'detalle' => 'No se han registrado clientes con ese numero',
                 ];
                 echo json_encode($json, true);
                 return;
-            }
-            
-            $existe_Cliente = false;
-            $validacionFK = ModelosRentaMiCarro::validacionFKCliente('rentas');
-            foreach ($validacionFK as $value) {
-                if ($datos['Cliente'] == $value->Cliente) {
-                    $existe_Cliente = true;
-                    break; // Salimos del bucle una vez que encontramos una coincidencia
-                }
-            }
-            
-            if (!$existe_Cliente) {
-                $json = [
-                    'detalle' => 'Error',
-                    'mensaje' => 'No existe el cliente',
-                ];
-                echo json_encode($json, true);
-                return;
-            }
+            }           
         #validacionde id para actualizar
         $id_rentas  =  ModelosRentaMiCarro::ValidacionIdRentas('rentas');
         $existe_id = false;

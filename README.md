@@ -2,6 +2,9 @@
 
 #### Este programa es una API para el consumo de una renta de carro.
 
+![modeloRenta](https://github.com/luisjuarez099/apiCarRent/assets/94242197/f4a5f279-4170-4deb-8801-ed963fe6c6a3)
+
+
 ## Carros
 **Ruta**: http://localhost/apiCarRent/carros
 **Metodo**: Get

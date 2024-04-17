@@ -19,17 +19,17 @@ class ModelosRentaMiCarro{
             INNER JOIN municipios recoMuni ON rentas.LugarReco = recoMuni.idMunicipios
             INNER JOIN estado recoEstado   ON recoMuni.estado = recoEstado.idEstado
             INNER JOIN cp recoCP 		   ON rentas.LugarReco = recoCP.idcp 
-            /*--------------------------------------------------*/
+            
             INNER JOIN direccion devoDire  ON rentas.LugarDevo = devoDire.idSucursal
             INNER JOIN Colonia    devoColo ON devoDire.Colonia = devoColo.idColonia
             INNER JOIN municipios devoMuni ON rentas.Lugardevo = devoMuni.idMunicipios
             INNER JOIN estado devoEstado   ON devoMuni.estado = devoEstado.idEstado
             INNER JOIN cp devoCP 		   ON rentas.LugarDevo = devoCP.idcp
-            /**/
+            
             INNER JOIN tipocarros		   ON rentas.TipoCarro = tipocarros.idTipoCarros
-            /**/
+            
             INNER JOIN clientes			   ON rentas.Cliente = clientes.idClientes
-            /**/
+            
             INNER JOIN direccion clienteDire  ON rentas.Cliente 	  = clienteDire.idSucursal
             INNER JOIN Colonia    clienteColo ON clienteDire.Colonia  = clienteColo.idColonia
             INNER JOIN municipios clienteMuni ON rentas.Cliente  = clienteMuni.idMunicipios
@@ -75,17 +75,17 @@ class ModelosRentaMiCarro{
             INNER JOIN municipios recoMuni ON rentas.LugarReco = recoMuni.idMunicipios
             INNER JOIN estado recoEstado   ON recoMuni.estado = recoEstado.idEstado
             INNER JOIN cp recoCP 		   ON rentas.LugarReco = recoCP.idcp 
-            /*--------------------------------------------------*/
+            
             INNER JOIN direccion devoDire  ON rentas.LugarDevo = devoDire.idSucursal
             INNER JOIN Colonia    devoColo ON devoDire.Colonia = devoColo.idColonia
             INNER JOIN municipios devoMuni ON rentas.Lugardevo = devoMuni.idMunicipios
             INNER JOIN estado devoEstado   ON devoMuni.estado = devoEstado.idEstado
             INNER JOIN cp devoCP 		   ON rentas.LugarDevo = devoCP.idcp
-            /**/
+            
             INNER JOIN tipocarros		   ON rentas.TipoCarro = tipocarros.idTipoCarros
-            /**/
+            
             INNER JOIN clientes			   ON rentas.Cliente = clientes.idClientes
-            /**/
+            
             INNER JOIN direccion clienteDire  ON rentas.Cliente 	  = clienteDire.idSucursal
             INNER JOIN Colonia    clienteColo ON clienteDire.Colonia  = clienteColo.idColonia
             INNER JOIN municipios clienteMuni ON rentas.Cliente  = clienteMuni.idMunicipios

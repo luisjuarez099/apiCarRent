@@ -35,7 +35,7 @@ if (count(array_filter($rutas_param)) == 1) {
             $datos = [
                 'LugarReco' => $_POST['LugarReco'],
                 'LugarDevo' => $_POST['LugarDevo'],
-                'FechaReco' => $_POST['FechaReco'],
+                'FechaReco' => date("Y-m-d"),
                 'FechaDevo' => $_POST['FechaDevo'],
                 'TipoCarro' => $_POST['TipoCarro'],
                 'Cliente' => $_POST['Cliente'],

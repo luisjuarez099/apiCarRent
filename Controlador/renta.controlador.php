@@ -14,7 +14,7 @@ class ControladorRenta{
     public function crearRenta($datos){
         $test_nums = '/^[0-9]*$/';
         $test_date = '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/';
-        if($datos['LugarReco'] == '' || $datos['LugarDevo'] == '' || $datos['FechaReco'] == '' || $datos['FechaDevo'] == '' || $datos['TipoCarro'] == '' || $datos['Cliente'] == ''){
+        if($datos['LugarReco'] == '' || $datos['LugarDevo'] == ''  || $datos['FechaDevo'] == '' || $datos['TipoCarro'] == '' || $datos['Cliente'] == ''){
             $json = [
                 'detalle' => 'Error',
                 'mensaje' => 'Verifica que los campos no pueden estar vacios',
@@ -39,14 +39,6 @@ class ControladorRenta{
             return;
         } 
         
-        if(!preg_match($test_date, $datos['FechaReco'])){
-            $json = [
-                'detalle' => 'Error',
-                'mensaje' => 'La fecha de Recogida no es valida',
-            ];
-            echo json_encode($json, true);
-            return;
-        }
         if(!preg_match($test_date, $datos['FechaDevo'])){
             $json = [
                 'detalle' => 'Error',

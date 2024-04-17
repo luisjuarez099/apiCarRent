@@ -5,7 +5,7 @@ require_once 'conexion.php';
 class ModeloDireccion{
      
     static public function misDirecciones($tabla, $id){
-        $stmt = Conexion::conectar()->prepare("SELECT Dire.Calle AS CalleReco, Dire.NumExt as NumExt, Colo.coloNombre as Colonia, Muni.nombre as Municipio, Estado.nombre as Estado, CP.CP
+        $stmt = Conexion::conectar()->prepare("SELECT idSucursal, Dire.Calle AS CalleReco, Dire.NumExt as NumExt, Colo.coloNombre as Colonia, Muni.nombre as Municipio, Estado.nombre as Estado, CP.CP
         FROM rentme.rentas
         INNER JOIN direccion  Dire ON rentas.LugarReco = Dire.idSucursal
         INNER JOIN Colonia    Colo ON Dire.Colonia = Colo.idColonia

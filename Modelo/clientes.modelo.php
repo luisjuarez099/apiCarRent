@@ -6,7 +6,7 @@ class ModelosClientes
 {
     static public function index($tabla)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT clientes.Nombre, clientes.ApellidoP, clientes.ApellidoM, clientes.AnioNacimiento, clientes.CURP, clientes.Telefono,
+        $stmt = Conexion::conectar()->prepare("SELECT idClientes, clientes.Nombre, clientes.ApellidoP, clientes.ApellidoM, clientes.AnioNacimiento, clientes.CURP, clientes.Telefono,
         direccion.Calle, direccion.NumExt, colonia.coloNombre as Colonia, municipios.nombre as Municipio, estado.nombre as Estado,
         cp.CP
         FROM rentme.$tabla

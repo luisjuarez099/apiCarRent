@@ -4,7 +4,7 @@ require_once "conexion.php";
 
 class ModelosRenta{
     static public function index($tabla){
-        $stmt = Conexion::conectar()->prepare("SELECT carros.Matricula, modelos.Modelo, modelos.Anio, marca.Nombre as marca, carros.tarifa,
+        $stmt = Conexion::conectar()->prepare("SELECT idCarros, carros.Matricula, modelos.Modelo, modelos.Anio, marca.Nombre as marca, carros.tarifa,
         carros.Caract, carros.VIN, tipocarros.CategoriaTipo,
         carros.tipoTransmicion
         FROM $tabla
